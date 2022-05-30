@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const app = require("./app");
+const routes = require("./routes");
 
 const PORT = process.env.PORT || 5050;
 
@@ -13,3 +14,5 @@ app.get("/", (req, res) => {
         message: "Server running successfully.",
     });
 });
+
+app.use("/api/v1", routes);
