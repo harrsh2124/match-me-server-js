@@ -46,6 +46,11 @@ const UserSchema = mongoose.Schema(
             default: false,
         },
 
+        isBlocked: {
+            type: Boolean,
+            default: false,
+        },
+
         userCredentials: {
             type: ObjectId,
             ref: "UserCredentials",

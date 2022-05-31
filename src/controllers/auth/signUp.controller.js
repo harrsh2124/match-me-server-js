@@ -1,11 +1,24 @@
 const UserModel = require("../../models/User.model");
 const UserCredentialsModel = require("../../models/UserCredentials.model");
 const { encryptPassword } = require("../../utils/encryptDecryptPassword");
+const ResponseHandler = require("../../utils/responseHandler");
 
 const SignUpController = async (req, res) => {
-    console.log(req.body);
     const { email, firstName, lastName, gender, password, contactNumber } =
         req.body;
+
+    const user = await UserModel.findOne({
+        email,
+    });
+
+    if (user) {
+        return ResponseHandler({
+            res,
+            message: "User already exists with this email address.",
+            statusCode: STATUS_CODES.BAD_REQUEST,
+            error: true,
+        });
+    }
 
     const encryptedPassword = await encryptPassword(password);
 
@@ -24,8 +37,11 @@ const SignUpController = async (req, res) => {
     await newUserCredentials.save();
     await newUser.save();
 
-    return res.status(200).json({
-        message: "Sign Up route.",
+    return ResponseHandler({
+        res,
+        message:
+            "Signed up successfully. Please check your email to find the confirmation link.",
+        statusCode: STATUS_CODES.CREATED,
     });
 };
 

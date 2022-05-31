@@ -8,17 +8,18 @@ const ResponseHandler = ({
     error,
     removeToken,
 }) => {
+    const isError = Boolean(typeof error !== "undefined");
     const responseMessage =
         message || _.get(error, "message", "Something went wrong.");
-    logger.info(`Error is ----> ${responseMessage}`);
+    logger.info(`${isError ? "Error" : "Message"} is ----> ${responseMessage}`);
 
     return res.status(statusCode).json({
         success: true,
         data: {
-            status: statusCode,
+            statusCode,
             message: responseMessage,
             data: data || {},
-            isError: Boolean(typeof error !== "undefined"),
+            isError,
             removeToken,
         },
     });
