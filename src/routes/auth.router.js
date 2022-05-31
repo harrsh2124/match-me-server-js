@@ -4,11 +4,12 @@ const ConfirmUserController = require("../controllers/auth/ConfirmUser.controlle
 const SignInController = require("../controllers/auth/SignIn.controller");
 const SignUpController = require("../controllers/auth/SignUp.controller");
 const signUpSchema = require("../schemas/auth/signUp.schema");
+const signInSchema = require("../schemas/auth/signIn.schema");
 
 const AuthRoute = express.Router();
 
 AuthRoute.post("/signup", schemaValidator(signUpSchema), SignUpController);
-AuthRoute.post("/signin", SignInController);
+AuthRoute.post("/signin", schemaValidator(signInSchema), SignInController);
 AuthRoute.post("/verify/:userId/:verificationToken", ConfirmUserController);
 
 module.exports = AuthRoute;
