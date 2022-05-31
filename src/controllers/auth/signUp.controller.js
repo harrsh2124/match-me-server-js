@@ -1,3 +1,5 @@
+const crypto = require("crypto");
+
 const UserModel = require("../../models/User.model");
 const UserCredentialsModel = require("../../models/UserCredentials.model");
 const { encryptPassword } = require("../../utils/encryptDecryptPassword");
@@ -36,6 +38,10 @@ const SignUpController = async (req, res) => {
 
     await newUserCredentials.save();
     await newUser.save();
+
+    const encryptedToken = crypto.randomBytes(20).toString("hex");
+
+    logger.info(encryptedToken);
 
     return ResponseHandler({
         res,

@@ -1,4 +1,6 @@
-const { ADMIN_EMAIL } = require("../../config/constants");
+const jwt = require("jsonwebtoken");
+
+const { ADMIN_EMAIL, JWT_SECRET } = require("../../config/constants");
 const UserModel = require("../../models/User.model");
 const { decryptPassword } = require("../../utils/encryptDecryptPassword");
 const ResponseHandler = require("../../utils/responseHandler");
@@ -52,14 +54,19 @@ const SignInController = async (req, res) => {
         });
     }
 
-    user = user.toJSON();
-    delete user.userCredentials;
+    const jwtToken = jwt.sign(
+        {
+            _id: user._id,
+            email: user.email,
+        },
+        JWT_SECRET
+    );
 
     return ResponseHandler({
         res,
         message: "Signed in successfully.",
         data: {
-            user,
+            token: jwtToken,
         },
         statusCode: STATUS_CODES.SUCCESS,
     });
