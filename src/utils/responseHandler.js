@@ -1,7 +1,6 @@
 const _ = require("lodash");
-const logger = require("../config/logger");
 
-const responseHandler = ({
+const ResponseHandler = ({
     res,
     statusCode,
     message,
@@ -25,4 +24,4 @@ const responseHandler = ({
     });
 };
 
-module.exports = responseHandler;
+module.exports = ResponseHandler;
