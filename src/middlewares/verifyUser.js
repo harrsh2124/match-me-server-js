@@ -20,7 +20,7 @@ const verifyUser = async (req, res, next) => {
 
         const { _id } = jwt.verify(token, JWT_SECRET);
 
-        let user = await UserModel.findById(_id);
+        const user = await UserModel.findById(_id);
 
         if (!user) {
             return ResponseHandler({
@@ -31,10 +31,7 @@ const verifyUser = async (req, res, next) => {
             });
         }
 
-        user = user.toJSON();
-        delete user.userCredentials;
-
-        req.user = user;
+        req.auth = user._id;
         next();
     } catch (error) {
         return ResponseHandler({
