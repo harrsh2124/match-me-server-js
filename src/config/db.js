@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { MONGODB_URI } = require("./constants");
 
 const connectDB = async () => {
     try {

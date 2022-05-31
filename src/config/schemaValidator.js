@@ -1,5 +1,3 @@
-const STATUS_CODES = require("./constants/statusCodes");
-
 const schemaValidator = (schema) => {
     return (req, res, next) => {
         const { error } = schema.validate(req.body);
