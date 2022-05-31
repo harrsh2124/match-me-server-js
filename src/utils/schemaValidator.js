@@ -3,10 +3,10 @@ const schemaValidator = (schema) => {
         const { error } = schema.validate(req.body);
 
         if (error) {
-            console.log(error.message, " << Validation error.");
-
-            return res.status(STATUS_CODES.BAD_REQUEST).json({
-                message: error.message,
+            return ResponseHandler({
+                res,
+                error,
+                statusCode: STATUS_CODES.BAD_REQUEST,
             });
         }
 
