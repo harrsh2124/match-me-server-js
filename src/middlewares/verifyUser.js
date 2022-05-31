@@ -15,6 +15,7 @@ const verifyUser = async (req, res, next) => {
                 message: "No authorization token found.",
                 statusCode: STATUS_CODES.UNAUTHORIZED,
                 error: true,
+                removeToken: true,
             });
         }
 
@@ -28,6 +29,7 @@ const verifyUser = async (req, res, next) => {
                 message: "User not found.",
                 statusCode: STATUS_CODES.FORBIDDEN,
                 error: true,
+                removeToken: true,
             });
         }
 
@@ -38,6 +40,7 @@ const verifyUser = async (req, res, next) => {
             res,
             statusCode: STATUS_CODES.SERVER_ERROR,
             error,
+            removeToken: true,
         });
     }
 };
