@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { GENDER_ENUM } = require("../config/enums/gender.enum");
+const { GENDER_ENUM } = require("../enums/gender.enum");
 
 const { ObjectId } = mongoose.Schema;
 

@@ -1,5 +1,5 @@
-const UserModel = require("../../models/user.model");
-const UserCredentialsModel = require("../../models/userCredentials.model");
+const UserModel = require("../../models/User.model");
+const UserCredentialsModel = require("../../models/UserCredentials.model");
 
 const SignUpController = async (req, res) => {
     console.log(req.body);
