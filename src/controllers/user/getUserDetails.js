@@ -3,9 +3,7 @@ const ResponseHandler = require("../../utils/responseHandler");
 
 const GetUserDetailsController = async (req, res) => {
     try {
-        const { _id, email } = req.auth;
-
-        console.log(_id, email);
+        const { _id } = req.user;
 
         let user = await UserModel.findById(_id);
         user = user.toJSON();
