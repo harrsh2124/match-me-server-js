@@ -6,49 +6,57 @@ const { encryptPassword } = require("../../utils/encryptDecryptPassword");
 const ResponseHandler = require("../../utils/responseHandler");
 
 const SignUpController = async (req, res) => {
-    const { email, firstName, lastName, gender, password, contactNumber } =
-        req.body;
+    try {
+        const { email, firstName, lastName, gender, password, contactNumber } =
+            req.body;
 
-    const user = await UserModel.findOne({
-        email,
-    });
+        const user = await UserModel.findOne({
+            email,
+        });
 
-    if (user) {
+        if (user) {
+            return ResponseHandler({
+                res,
+                message: "User already exists with this email address.",
+                statusCode: STATUS_CODES.BAD_REQUEST,
+                error: true,
+            });
+        }
+
+        const encryptedPassword = await encryptPassword(password);
+
+        const newUserCredentials = new UserCredentialsModel({
+            password: encryptedPassword,
+            contactNumber,
+        });
+        const newUser = new UserModel({
+            email,
+            firstName,
+            lastName,
+            gender,
+            userCredentials: newUserCredentials._id,
+        });
+
+        await newUserCredentials.save();
+        await newUser.save();
+
+        const encryptedToken = crypto.randomBytes(20).toString("hex");
+
+        logger.info(encryptedToken);
+
         return ResponseHandler({
             res,
-            message: "User already exists with this email address.",
-            statusCode: STATUS_CODES.BAD_REQUEST,
-            error: true,
+            message:
+                "Signed up successfully. Please check your email to find the confirmation link.",
+            statusCode: STATUS_CODES.CREATED,
+        });
+    } catch (error) {
+        return ResponseHandler({
+            res,
+            statusCode: STATUS_CODES.SERVER_ERROR,
+            error,
         });
     }
-
-    const encryptedPassword = await encryptPassword(password);
-
-    const newUserCredentials = new UserCredentialsModel({
-        password: encryptedPassword,
-        contactNumber,
-    });
-    const newUser = new UserModel({
-        email,
-        firstName,
-        lastName,
-        gender,
-        userCredentials: newUserCredentials._id,
-    });
-
-    await newUserCredentials.save();
-    await newUser.save();
-
-    const encryptedToken = crypto.randomBytes(20).toString("hex");
-
-    logger.info(encryptedToken);
-
-    return ResponseHandler({
-        res,
-        message:
-            "Signed up successfully. Please check your email to find the confirmation link.",
-        statusCode: STATUS_CODES.CREATED,
-    });
 };
 
 module.exports = SignUpController;
