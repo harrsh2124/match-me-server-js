@@ -3,11 +3,12 @@ require("./config/globals");
 
 const app = require("./app");
 const connectDB = require("./config/db");
+const logger = require("./config/logger");
 const routes = require("./routes");
 
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}...`);
+        logger.info(`Server is running on port ${PORT}...`);
     });
 
     app.get("/", (req, res) => {
