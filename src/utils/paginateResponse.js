@@ -1,30 +1,7 @@
 const _ = require("lodash");
 
-const PaginateResponse = async (req, model) => {
-    const intPage = parseInt(_.get(req, "query.page", "1"), 10);
-    const intLimit = parseInt(_.get(req, "query.limit", "10"), 10);
-
-    const [data] = await model.aggregate([
-        {
-            $facet: {
-                result: [
-                    {
-                        $skip: (intPage - 1) * intLimit,
-                    },
-                    {
-                        $limit: intLimit,
-                    },
-                ],
-                count: [
-                    {
-                        $count: "total",
-                    },
-                ],
-            },
-        },
-    ]);
-
-    const totalItems = data.count[0].total;
+const PaginateResponse = async (req, data, intPage, intLimit) => {
+    const totalItems = data[0].count[0].total;
     const totalPages = Math.ceil(totalItems / intLimit);
 
     const URL =
@@ -34,7 +11,7 @@ const PaginateResponse = async (req, model) => {
         req.originalUrl.split("?").shift();
 
     return {
-        result: data.result,
+        result: data[0].result,
         meta: {
             totalItems,
             currentPage: intPage,

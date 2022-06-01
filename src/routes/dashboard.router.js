@@ -8,8 +8,8 @@ const DashboardRoute = express.Router();
 
 DashboardRoute.get(
     "/all-users",
-    schemaValidator(paginationSchema, (type = "query")),
     verifyUser,
+    schemaValidator(paginationSchema, (type = "query")),
     GetAllUsersController
 );
 

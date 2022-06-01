@@ -10,8 +10,8 @@ const UserRoute = express.Router();
 UserRoute.get("/details", verifyUser, GetUserDetailsController);
 UserRoute.put(
     "/update",
-    schemaValidator(updateUserSchema),
     verifyUser,
+    schemaValidator(updateUserSchema),
     UpdateUserDetailsController
 );
 
