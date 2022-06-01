@@ -33,7 +33,7 @@ const verifyUser = async (req, res, next) => {
             });
         }
 
-        req.auth = user._id;
+        req.user = user;
         next();
     } catch (error) {
         return ResponseHandler({

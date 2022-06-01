@@ -6,12 +6,22 @@ const ResponseHandler = require("../../utils/responseHandler");
 
 const GetAllUsersController = async (req, res) => {
     try {
+        const user = req.user;
+
         const intPage = parseInt(_.get(req, "query.page", "1"), 10);
         const intLimit = parseInt(_.get(req, "query.limit", "10"), 10);
-        const data = await UserModel.aggregate([
+        const [data] = await UserModel.aggregate([
             {
                 $facet: {
                     result: [
+                        {
+                            $match: {
+                                gender:
+                                    user.gender === "male" ? "female" : "male",
+                                isHidden: false,
+                                isVerified: true,
+                            },
+                        },
                         {
                             $skip: (intPage - 1) * intLimit,
                         },
@@ -20,6 +30,14 @@ const GetAllUsersController = async (req, res) => {
                         },
                     ],
                     count: [
+                        {
+                            $match: {
+                                gender:
+                                    user.gender === "male" ? "female" : "male",
+                                isHidden: false,
+                                isVerified: true,
+                            },
+                        },
                         {
                             $count: "total",
                         },

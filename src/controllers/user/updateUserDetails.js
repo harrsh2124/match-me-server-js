@@ -3,7 +3,7 @@ const ResponseHandler = require("../../utils/responseHandler");
 
 const UpdateUserDetailsController = async (req, res) => {
     try {
-        const _id = req.auth;
+        const { _id } = req.user;
 
         let user = await UserModel.findByIdAndUpdate(
             _id,

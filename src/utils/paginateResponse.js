@@ -1,8 +1,8 @@
 const _ = require("lodash");
 
 const PaginateResponse = async (req, data, intPage, intLimit) => {
-    const totalItems = data[0].count[0].total;
-    const totalPages = Math.ceil(totalItems / intLimit);
+    const totalItems = _.get(data, "count[0].total", 0);
+    const totalPages = Math.ceil(totalItems / intLimit) || 1;
 
     const URL =
         req.protocol +
@@ -11,7 +11,7 @@ const PaginateResponse = async (req, data, intPage, intLimit) => {
         req.originalUrl.split("?").shift();
 
     return {
-        result: data[0].result,
+        result: data.result,
         meta: {
             totalItems,
             currentPage: intPage,
