@@ -5,8 +5,6 @@ const UpdateUserDetailsController = async (req, res) => {
     try {
         const _id = req.auth;
 
-        console.log(req.body);
-
         let user = await UserModel.findByIdAndUpdate(
             _id,
             req.body,

@@ -1,8 +1,10 @@
 const ResponseHandler = require("./responseHandler");
 
-const schemaValidator = (schema) => {
+const schemaValidator = (schema, type = "body") => {
     return (req, res, next) => {
-        const { error } = schema.validate(req.body);
+        const { error } = schema.validate(
+            type === "query" ? req.query : req.body
+        );
 
         if (error) {
             return ResponseHandler({

@@ -6,6 +6,8 @@ const updateUserSchema = Joi.object({
     lastName: Joi.string(),
 
     isPrivate: Joi.bool(),
+
+    isHidden: Joi.bool(),
 });
 
 module.exports = updateUserSchema;
