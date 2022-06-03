@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { JWT_SECRET } = require("../config/constants");
 const STATUS_CODES = require("../config/constants/statusCodes");
-const UserModel = require("../models/User.model");
+const UserModel = require("../models/user.model");
 const ResponseHandler = require("../utils/responseHandler");
 
 const verifyUser = async (req, res, next) => {
