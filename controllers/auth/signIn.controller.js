@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const { ADMIN_EMAIL, JWT_SECRET } = require("../../config/constants");
 const STATUS_CODES = require("../../config/constants/statusCodes");
-const UserModel = require("../../models/User.model");
+const UserModel = require("../../models/user.model");
 const { decryptPassword } = require("../../utils/encryptDecryptPassword");
 const ResponseHandler = require("../../utils/responseHandler");
 

@@ -2,8 +2,8 @@ const crypto = require("crypto");
 const STATUS_CODES = require("../../config/constants/statusCodes");
 const logger = require("../../config/logger");
 
-const UserModel = require("../../models/User.model");
-const UserCredentialsModel = require("../../models/UserCredentials.model");
+const UserModel = require("../../models/user.model");
+const UserCredentialsModel = require("../../models/userCredentials.model");
 const { encryptPassword } = require("../../utils/encryptDecryptPassword");
 const ResponseHandler = require("../../utils/responseHandler");
 

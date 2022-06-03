@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const STATUS_CODES = require("../../config/constants/statusCodes");
 
-const UserModel = require("../../models/User.model");
+const UserModel = require("../../models/user.model");
 const PaginateResponse = require("../../utils/paginateResponse");
 const ResponseHandler = require("../../utils/responseHandler");
 

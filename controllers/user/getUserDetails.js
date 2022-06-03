@@ -1,5 +1,5 @@
 const STATUS_CODES = require("../../config/constants/statusCodes");
-const UserModel = require("../../models/User.model");
+const UserModel = require("../../models/user.model");
 const ResponseHandler = require("../../utils/responseHandler");
 
 const GetUserDetailsController = async (req, res) => {
