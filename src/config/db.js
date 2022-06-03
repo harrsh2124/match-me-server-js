@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { MONGODB_URI } = require("./constants");
+const logger = require("./logger");
 
 const connectDB = async () => {
     try {

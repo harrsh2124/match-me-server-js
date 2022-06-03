@@ -1,4 +1,6 @@
 const crypto = require("crypto");
+const STATUS_CODES = require("../../config/constants/statusCodes");
+const logger = require("../../config/logger");
 
 const UserModel = require("../../models/User.model");
 const UserCredentialsModel = require("../../models/UserCredentials.model");

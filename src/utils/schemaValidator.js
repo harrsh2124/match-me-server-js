@@ -1,3 +1,4 @@
+const STATUS_CODES = require("../config/constants/statusCodes");
 const ResponseHandler = require("./responseHandler");
 
 const schemaValidator = (schema, type = "body") => {

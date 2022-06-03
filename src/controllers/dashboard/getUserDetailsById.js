@@ -1,3 +1,4 @@
+const STATUS_CODES = require("../../config/constants/statusCodes");
 const UserModel = require("../../models/User.model");
 const ResponseHandler = require("../../utils/responseHandler");
 

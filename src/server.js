@@ -1,7 +1,7 @@
 require("dotenv").config();
-require("./config/globals");
 
 const app = require("./app");
+const { PORT } = require("./config/constants");
 const connectDB = require("./config/db");
 const logger = require("./config/logger");
 const routes = require("./routes");

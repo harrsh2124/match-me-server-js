@@ -1,4 +1,5 @@
 const _ = require("lodash");
+const logger = require("../config/logger");
 
 const ResponseHandler = ({
     res,
